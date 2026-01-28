@@ -30,8 +30,12 @@ const corsOptions = {
             }
         }
 
-        // In production, check against FRONTEND_URL
-        const allowedOrigins = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : [];
+        // Allowed origins
+        const allowedOrigins = [
+            'https://pastebin-lite-uj26.vercel.app', // Explicitly allow frontend
+            ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : [])
+        ];
+
         if (allowedOrigins.includes(origin)) {
             return callback(null, true);
         }
@@ -96,7 +100,7 @@ app.use((err, req, res, next) => {
 // Start server (only in non-serverless environment)
 const PORT = process.env.PORT || 5000;
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' || process.env.RENDER) {
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });
