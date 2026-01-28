@@ -152,49 +152,6 @@ GET /p/:id
 ```
 Returns HTML page displaying the paste content.
 
-## Important Design Decisions
-
-### 1. Separate Frontend and Backend
-The application is split into two independent deployments for:
-- Better separation of concerns
-- Independent scaling
-- Easier maintenance
-- Flexibility in deployment strategies
-
-### 2. MongoDB for Persistence
-MongoDB Atlas was chosen over in-memory or file-based storage because:
-- Vercel serverless functions are stateless
-- TTL indexes provide automatic cleanup
-- Cloud-hosted solution requires no server maintenance
-- Free tier is sufficient for the use case
-
-### 3. Deterministic Time for Testing
-The application supports `TEST_MODE=1` environment variable and `x-test-now-ms` header for deterministic expiry testing, allowing automated tests to verify TTL functionality.
-
-### 4. View Count Tracking
-Each API fetch increments the view count. The application uses atomic operations to prevent race conditions under concurrent load.
-
-### 5. Error Handling
-Comprehensive error handling with:
-- Input validation using express-validator
-- Proper HTTP status codes
-- JSON error responses
-- Safe HTML rendering (XSS prevention)
-
-### 6. CORS Configuration
-Backend is configured to accept requests from the frontend domain, with proper CORS headers for cross-origin requests.
-
-## Testing
-
-The application is designed to pass automated tests for:
-- Health check endpoint
-- Paste creation and retrieval
-- View limits
-- TTL expiry
-- Combined constraints
-- Error handling
-- Concurrent access
-
 ## License
 
 MIT
