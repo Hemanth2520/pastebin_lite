@@ -33,6 +33,9 @@ const corsOptions = {
         // Allowed origins
         const allowedOrigins = [
             'https://pastebin-lite-uj26.vercel.app', // Explicitly allow frontend
+            'http://localhost:5173', // Allow local dev
+            'http://localhost:5174', // Allow local dev alternate
+            'http://localhost:3000', // Allow local dev alternate
             ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : [])
         ];
 
